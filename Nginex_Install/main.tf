@@ -54,7 +54,7 @@ resource "aws_route_table_association" "lab_route_as" {
   route_table_id = aws_route_table.lab_public_rt.id
 }
 
-
+//This Security Group will allow port 22 (ssh) and port 80 (http) traffic
 resource "aws_security_group" "lab_sg" {
   name        = "vpc_sg"
   description = "Main VPC secuirty group for lab"
