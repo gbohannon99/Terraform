@@ -7,7 +7,7 @@ resource "aws_vpc" "lab_vpc" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = "Lab1"
+    Name = "Lab1-VPC"
   }
 
 }
@@ -21,7 +21,7 @@ resource "aws_subnet" "lab_subnet" {
   map_public_ip_on_launch = "true"
 
   tags = {
-    "Name" = "Lab1"
+    "Name" = "Lab1-Subnet"
   }
 }
 
@@ -31,7 +31,7 @@ resource "aws_internet_gateway" "lab_gw" {
   vpc_id = aws_vpc.lab_vpc.id
 
   tags = {
-    "Name" = "lab1"
+    "Name" = "lab1-IG"
   }
 }
 
@@ -57,10 +57,11 @@ resource "aws_route_table_association" "lab_route_as" {
 //This Security Group will allow port 22 (ssh) and port 80 (http) traffic
 resource "aws_security_group" "lab_sg" {
   name        = "vpc_sg"
-  description = "Main VPC secuirty group for lab"
+  description = "Allow web traffic"
   vpc_id      = aws_vpc.lab_vpc.id
 
   ingress {
+    description = "ssh"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -68,6 +69,7 @@ resource "aws_security_group" "lab_sg" {
   }
 
   ingress {
+    description = "HTTP from VPC"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
@@ -81,3 +83,6 @@ resource "aws_security_group" "lab_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+
+  
