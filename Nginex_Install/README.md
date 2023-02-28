@@ -14,3 +14,4 @@ The basic steps I used to sucessfully code this project were as follows:
 7) Create a EC2 Instance.
     a. use a remote provisioner to install nginx
 
+![image](https://user-images.githubusercontent.com/120689107/221710280-e17c507d-6418-4337-b742-77a6272f6387.png)
