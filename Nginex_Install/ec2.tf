@@ -22,11 +22,11 @@ resource "aws_instance" "lab_instance" {
   vpc_security_group_ids      = [aws_security_group.lab_sg.id]
   associate_public_ip_address = "true"
 
-  connection {                          //the connection block is the means in which terraform will connect to the instance after it is created
-    type        = "ssh"                 //It is going to ssh(basically use command line) to connect to it 
-    user        = "ec2-user"            //ec2-user is the user
-    private_key = file("./Lab1_KP.pem") //we switched the password block with the private_key (key pair) we made in AWS and specify the "file path"
-    host        = self.public_ip        //this command uses the ec2 instances public ip that it receives upon creation 
+  connection {                           //the connection block is the means in which terraform will connect to the instance after it is created
+    type        = "ssh"                  //It is going to ssh(basically use command line) to connect to it 
+    user        = "ec2-user"             //ec2-user is the user
+    private_key = aws_key_pair.lab_kp.id //we switched the password block with the private_key (key pair) we made in AWS and specify the "file path"
+    host        = self.public_ip         //this command uses the ec2 instances public ip that it receives upon creation 
   }
 
   provisioner "remote-exec" {
